@@ -22,7 +22,6 @@ async def on_message(message):
 		await client.send_message(message.channel, 'Done sleeping')
 	elif message.content.startswith('!bot'):
 		response = bot(message)
-		await client.send_message(message.channel, response)
 	elif message.content.startswith('!coin'):
 		response = coin(message)
 	elif message.content.startswith('!kappaspam'):
