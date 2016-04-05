@@ -1,6 +1,6 @@
 import discord
 import asyncio
-from random import randint
+import random
 
 client = discord.Client()
 
@@ -17,71 +17,65 @@ async def on_message(message):
 	input = ""
 	response = ""
 	n = 1
-	if message.content.startswith('!test'):
-		counter = 0
-		tmp = await client.send_message(message.channel, 'Calculating messages...')
-		async for log in client.logs_from(message.channel, limit=100):
-			if log.author == message.author:
-				counter += 1
-
-		await client.edit_message(tmp, 'You have {} messages.'.format(counter))
-	elif message.content.startswith('!sleep'):
+	if message.content.startswith('!sleep'):
 		await asyncio.sleep(5)
 		await client.send_message(message.channel, 'Done sleeping')
 	elif message.content.startswith('!bot'):
-		input = message.content.partition(' ')[2]
-		if (input == ""):
-			response = "What happened.. ?"
-		elif (input.find("know") != -1):
-			response = "How do you mean.. ?";
-		elif (input.find("?") != -1) :
-			response = "You don't kNOW.. ?";
-		elif (input.find("have") != -1):
-			response = "HAVE";
-		elif (input.find("now") != -1):
-			response = "NOW";
-		elif (input.find("bye") != -1 or input.find("b-") != -1):
-			response = "b-";
-		else :
-			n = randint(1,11)
-			if n == 1:
-				response = "Did you know Pnig's my best friend on snapchat.. ?";
-			elif n == 2:
-				response = "How do you mean.. ?";
-			elif n == 3:
-				response = "What happened.. ?";
-			elif n == 4:
-				response = "Such as.. ?";
-			elif n == 5:
-				response = "They're not even good!";
-			elif n == 6:
-				response = "You've got a lot of loyalty ";
-			elif n == 7:
-				response = "I'm HAVING fun" ;
-			elif n == 8:
-				response = "Whatever d00d";
-			elif n == 9:
-				response = "Pretty cheap";
-			elif n == 10:
-				response = "l0l";
-			elif n == 11:
-				response = "demmit";
-		
+		response = bot(message)
 		await client.send_message(message.channel, response)
 	elif message.content.startswith('!coin'):
-		n = randint(0,1)
-		if n == 0:
-			response = "Heads"
-		else:
-			response = "Tails"
-		await client.send_message(message.channel, response)
-
-	elif message.content.startswith('!bot'):
-		pass
-	elif message.content.startswith('!bot'):
-		pass
+		response = coin(message)
+	elif message.content.startswith('!kappaspam'):
+		response = kappaspam()
+	elif "Angelo" in message.content:
+		await client.send_message(message.channel, (message.content.replace("Angelo", "------")))
+		await client.send_message(message.channel, "MESSAGE EDITED: Stop talking about your master " + message.author.name)
+		await client.delete_message(message)
 	elif message.content.startswith('!help'):
 		pass
+		
+	await client.send_message(message.channel, response)
+
+		
+def bot(message):	
+	input = message.content.partition(' ')[2]
+	if (input == ""):
+		response = "What happened.. ?"
+	elif (input.find("know") != -1):
+		response = "How do you mean.. ?";
+	elif (input.find("?") != -1) :
+		response = "You don't kNOW.. ?";
+	elif (input.find("have") != -1):
+		response = "HAVE";
+	elif (input.find("now") != -1):
+		response = "NOW";
+	elif (input.find("bye") != -1 or input.find("b-") != -1 or input.find("buh") != -1):
+		response = "b-";
+	else :
+		phrases = open('phrases.txt').read().splitlines()
+		response = random.choice(phrases) 
+		
+	return response
+	
+def coin(message):
+	n = random.randint(0,1)
+	if n == 0:
+		response = "Heads"
+	else:
+		response = "Tails"
+		
+	return response
+	
+def kappaspam():
+	response = "kappa kappa kappa kappa kappa\n kappa kappa kappa kappa kappa\n kappa kappa kappa kappa kappa"
+	return response
+	
+	
+		
+async def on_member_join(member):
+	if member.name == "Reikkou":
+		await client.send_message(message.channel, "@everyone PNIG ALERT")
+		await client.send_message(message.channel, "HI PNIG!")
 
 
 		
