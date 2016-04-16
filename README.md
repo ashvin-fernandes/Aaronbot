@@ -5,3 +5,4 @@ Random number
 Youtube videos
 Remake quotes
 !help
+Error log
