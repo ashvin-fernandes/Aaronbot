@@ -1,0 +1,7 @@
+Commands
+!bot [message]
+!coin
+!kappaspam
+!video [video title]
+!lolbans 
+!help
