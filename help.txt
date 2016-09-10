@@ -4,4 +4,5 @@ Commands
 !kappaspam
 !video [video title]
 !lolbans 
+!magic [card name]
 !help
